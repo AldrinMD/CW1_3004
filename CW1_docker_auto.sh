@@ -1,7 +1,33 @@
 #!/bin/bash
-mkdir CW1_webtest
-cd CW1_webtest
-echo '<html><body><h1> Welcome to COMP3004 CW1 </h1></body></html>' | sudo tee index.htm
+
+# Master
+mkdir CW1_master
+cd CW1_master
+echo '<html><body><h1> Welcome to COMP3004 CW1 Master Node </h1></body></html>' | sudo tee index.htm
 echo -e 'FROM nginx:alpine \n COPY /index.htm /usr/share/nginx/html/index.html \n' | sudo tee Dockerfile
-sudo docker build -t nginxcw1_test1 .
-sudo docker run -itd --name nginxserver1 -p 8081:80 nginxcw1_test1 
+sudo docker build -t nginx_cw1_master .
+sudo docker run -itd --name nginx_master_server -p 8080:80 nginx_cw1_master 
+
+# Worker 1
+mkdir CW1_worker_1
+cd CW1_worker_1
+echo '<html><body><h1> Welcome to COMP3004 CW1 Worker 1 </h1></body></html>' | sudo tee index.htm
+echo -e 'FROM nginx:alpine \n COPY /index.htm /usr/share/nginx/html/index.html \n' | sudo tee Dockerfile
+sudo docker build -t nginx_cw1_worker_1 .
+sudo docker run -itd --name nginx_worker_1_server -p 8081:80 nginx_cw1_worker_1 
+
+# Worker 2
+mkdir CW1_worker_2
+cd CW1_worker_2
+echo '<html><body><h1> Welcome to COMP3004 CW1 Worker 2 </h1></body></html>' | sudo tee index.htm
+echo -e 'FROM nginx:alpine \n COPY /index.htm /usr/share/nginx/html/index.html \n' | sudo tee Dockerfile
+sudo docker build -t nginx_cw1_worker_2 .
+sudo docker run -itd --name nginx_worker_2_server -p 8082:80 nginx_cw1_worker_2
+
+# Worker 3
+mkdir CW1_worker_3
+cd CW1_worker_3
+echo '<html><body><h1> Welcome to COMP3004 CW1 Worker 3 </h1></body></html>' | sudo tee index.htm
+echo -e 'FROM nginx:alpine \n COPY /index.htm /usr/share/nginx/html/index.html \n' | sudo tee Dockerfile
+sudo docker build -t nginx_cw1_worker_3 .
+sudo docker run -itd --name nginx_worker_3_server -p 8083:80 nginx_cw1_worker_3 
