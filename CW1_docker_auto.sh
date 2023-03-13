@@ -5,7 +5,8 @@ cd
 mkdir CW1_master
 cd CW1_master
 IPaddr=$(hostname -I | awk '{print $1}')
-echo 'http{\n    upstream CW1_master {\n        server $IPaddr:8081\n        server $IPaddr:8082\n        server $IPaddr:8083\n    }\n\n    server {\n        listen 8080;\n\n        location / {\n            proxy_pass http://CW1_master/;\n        }\n    }\n}\n\nevents { }' | sudo tee nginx.conf
+echo 'http{\n    upstream CW1_master {\n        server $IPaddr:8081\n        server $IPaddr:8082\n        server $IPaddr:8083\n    }\n\n    server {\n        listen 8080;\n\n        location / {\n            proxy_pass http://CW1_master/;\n        }\n    }\n}\n\nevents { }' | sudo tee nginx
+sudo mv nginx nginx.conf
 echo '<html><body><h1> Welcome to COMP3004 CW1 Master Node </h1></body></html>' | sudo tee index.htm
 echo -e 'FROM nginx:alpine \n COPY /index.htm /usr/share/nginx/html/index.html \n' | sudo tee Dockerfile
 sudo docker build -t nginx_cw1_master .
