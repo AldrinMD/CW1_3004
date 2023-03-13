@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Master
+cd
 mkdir CW1_master
 cd CW1_master
 echo '<html><body><h1> Welcome to COMP3004 CW1 Master Node </h1></body></html>' | sudo tee index.htm
@@ -9,6 +10,7 @@ sudo docker build -t nginx_cw1_master .
 sudo docker run -itd --name nginx_master_server -p 8080:80 nginx_cw1_master 
 
 # Worker 1
+cd
 mkdir CW1_worker_1
 cd CW1_worker_1
 echo '<html><body><h1> Welcome to COMP3004 CW1 Worker 1 </h1></body></html>' | sudo tee index.htm
@@ -17,6 +19,7 @@ sudo docker build -t nginx_cw1_worker_1 .
 sudo docker run -itd --name nginx_worker_1_server -p 8081:80 nginx_cw1_worker_1 
 
 # Worker 2
+cd
 mkdir CW1_worker_2
 cd CW1_worker_2
 echo '<html><body><h1> Welcome to COMP3004 CW1 Worker 2 </h1></body></html>' | sudo tee index.htm
@@ -25,6 +28,7 @@ sudo docker build -t nginx_cw1_worker_2 .
 sudo docker run -itd --name nginx_worker_2_server -p 8082:80 nginx_cw1_worker_2
 
 # Worker 3
+cd
 mkdir CW1_worker_3
 cd CW1_worker_3
 echo '<html><body><h1> Welcome to COMP3004 CW1 Worker 3 </h1></body></html>' | sudo tee index.htm
