@@ -7,10 +7,10 @@ cd CW1_master
 IPaddr=$(hostname -I | awk '{print $1}')
 nginx_conf="http{\n\tupstream CW1_master {\n\t\tserver ${IPaddr}:8081\n\t\tserver ${IPaddr}:8082\n\t\tserver ${IPaddr}:8083\n\t}\n\n\tserver {\n\t\tlisten 8080;\n\n\t\tlocation / {\n\t\t\tproxy_pass http://CW1_master/;\n\t\t}\n\t}\n}\n\nevents { }" 
 echo -e $nginx_conf | sudo tee nginx.conf
-echo '<html><body><h1> Welcome to COMP3004 CW1 Master Node </h1></body></html>' | sudo tee index.htm
+#echo '<html><body><h1> Welcome to COMP3004 CW1 Master Node </h1></body></html>' | sudo tee index.htm
 echo -e 'FROM nginx \nCOPY /nginx.conf /etc/nginx/nginx.conf \n' | sudo tee Dockerfile
 sudo docker build -t nginx_cw1_master .
-sudo docker run -itd --name nginx_master -p 8080:80 nginx_cw1_master 
+sudo docker run --name nginx_master -p 8080:80 nginx_cw1_master 
 
 # Worker 1
 cd
