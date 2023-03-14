@@ -7,7 +7,7 @@ cd
 cd /etc/nginx
 sudo mv nginx.conf nginx-original.conf
 IPaddr=$(hostname -I | awk '{print $1}')
-nginx_conf="http{\n\tupstream CW1_master {\n\t\tserver ${IPaddr}:8081\n\t\tserver ${IPaddr}:8082\n\t\tserver ${IPaddr}:8083\n\t}\n\n\tserver {\n\t\tlisten 8080;\n\n\t\tlocation / {\n\t\t\tproxy_pass http://CW1_master/;\n\t\t}\n\t}\n}\n\nevents { }" 
+nginx_conf="http{\n\tupstream CW1_master {\n\t\tserver ${IPaddr}:8081\n\t\tserver ${IPaddr}:8082\n\t\tserver ${IPaddr}:8083\n\t}\n\n\tserver {\n\t\tlisten 80;\n\n\t\tlocation / {\n\t\t\tproxy_pass http://CW1_master/;\n\t\t}\n\t}\n}\n\nevents { }" 
 echo -e $nginx_conf | sudo tee nginx.conf
 #echo '<html><body><h1> Welcome to COMP3004 CW1 Master Node </h1></body></html>' | sudo tee index.htm
 #echo -e 'FROM nginx:alpine \nCOPY /nginx.conf /etc/nginx/nginx.conf \n' | sudo tee Dockerfile
